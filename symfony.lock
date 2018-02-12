@@ -1,9 +1,24 @@
 {
+    "guzzlehttp/guzzle": {
+        "version": "6.3.0"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.4.2"
+    },
+    "jgawlik/api-item-client": {
+        "version": "dev-master"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
     "psr/container": {
         "version": "1.0.0"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
     },
     "psr/log": {
         "version": "1.0.2"
@@ -66,6 +81,9 @@
         "version": "v4.0.4"
     },
     "symfony/http-kernel": {
+        "version": "v4.0.4"
+    },
+    "symfony/options-resolver": {
         "version": "v4.0.4"
     },
     "symfony/polyfill-mbstring": {
