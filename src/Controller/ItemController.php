@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use ApiClient\Service\ItemInterface;
+use App\ItemDownload\ItemDownloadOptionsFactory;
 use App\ItemDownload\ItemDownloadOptionsInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Serializer;
 
 class ItemController extends AbstractController
 {
@@ -28,8 +32,28 @@ class ItemController extends AbstractController
         ]);
     }
 
-    public function downloadItem()
+    public function downloadItem(string $downloadOption)
     {
-        //TODO
+        $itemDownloadOption = (new ItemDownloadOptionsFactory())->getItemDownloadOption($downloadOption);
+        $filteredItems = $this->itemApi->getByParams($itemDownloadOption->getQueryOptions());
+
+        return $this->getCsvResponse($filteredItems);
+    }
+
+    private function getCsvResponse(array $csvData): Response
+    {
+        $serializer = new Serializer([], [new CsvEncoder()]);
+        $response = new Response(
+            $serializer->serialize(
+                $csvData,
+                'csv',
+                ['groups' => ['csv']]
+            )
+        );
+
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename=items_list.csv');
+
+        return $response;
     }
 }

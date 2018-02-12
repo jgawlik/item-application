@@ -47,7 +47,7 @@
                     <div class="panel-body">
                         {% for option, text in downloadOptions %}
                             <div>
-                                <a class="btn btn-info" role="button" href="{{ path('download_item', {'option': option }) }}">{{ text }}</a>
+                                <a class="btn btn-info" role="button" href="{{ path('download_item', {'downloadOption': option }) }}">{{ text }}</a>
                             </div>
                         {% endfor %}
                     </div>

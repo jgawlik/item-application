@@ -3,5 +3,5 @@ show_items:
     controller: App\Controller\ItemController::showItems
 
 download_item:
-    path:      /download_items
+    path:      /download_items/{downloadOption}
     controller: App\Controller\ItemController::downloadItem
