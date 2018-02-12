@@ -13,3 +13,13 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    api.item.guzzle:
+         class: GuzzleHttp\Client
+         arguments:
+            - base_uri: '%env(API_ITEM_URL)%'
+
+    ApiClient\Service\Item:
+         arguments: ['@api.item.guzzle']
+
+    ApiClient\Service\ItemInterface: '@ApiClient\Service\Item'
