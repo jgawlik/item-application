@@ -1,0 +1,7 @@
+show_items:
+    path:      /
+    controller: App\Controller\ItemController::showItems
+
+download_item:
+    path:      /download_items
+    controller: App\Controller\ItemController::downloadItem

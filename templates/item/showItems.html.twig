@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-offset-4 col-md-4">
+
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            <a href="#" class="close" data-dismiss="alert" title="close">×</a>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Lista wszystkich produktów</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nazwa produktu</th>
+                                <th>Ilość produktu na stanie</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in items %}
+                                <tr>
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.amount }} </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Pobierz produkty</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% for option, text in downloadOptions %}
+                            <div>
+                                <a class="btn btn-info" role="button" href="{{ path('download_item', {'option': option }) }}">{{ text }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
