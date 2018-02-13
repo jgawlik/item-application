@@ -47,7 +47,21 @@ class ItemController extends AbstractController
         $form = $this->createForm(ItemFromType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //TODO
+            try {
+                $this->itemApi->add($form->getData());
+            } catch (ItemClientException $clientException) {
+                $this->addFlash('danger', 'Formularz zawiera błędy!');
+                return $this->render('item/add.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            } catch (ItemServerException $serverException) {
+                $this->addFlash('danger', 'Wystąpił błąd przy dodawaniu produktu, spróbuj ponownie później.');
+
+                return $this->render('item/add.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            }
+
             $this->addFlash('success', 'Poprawnie dodano nowy produkt!');
             return $this->redirectToRoute('items_show');
         }
