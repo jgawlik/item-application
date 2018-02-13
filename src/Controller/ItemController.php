@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use ApiClient\Exception\ItemException;
+use ApiClient\Exception\ItemClientException;
+use ApiClient\Exception\ItemServerException;
 use ApiClient\Service\ItemInterface;
 use App\ItemDownload\ItemDownloadOptionsFactory;
 use App\ItemDownload\ItemDownloadOptionsInterface;
@@ -27,8 +28,10 @@ class ItemController extends AbstractController
         $items = [];
         try {
             $items = $this->itemApi->getByParams([]);
-        } catch (ItemException $exception) {
+        } catch (ItemClientException $exception) {
             $this->addFlash('danger', $exception->getMessage());
+        } catch (ItemServerException $serverException) {
+            $this->addFlash('danger', 'Wystąpił błąd przy pobieraniu listy produktów, spróbuj ponownie później.');
         }
 
         return $this->render('item/show.html.twig', [
@@ -37,19 +40,20 @@ class ItemController extends AbstractController
         ]);
     }
 
-    public function downloadItem(string $downloadOption)
+    public function downloadItem(string $downloadOption): Response
     {
         $itemDownloadOption = (new ItemDownloadOptionsFactory())->getItemDownloadOption($downloadOption);
         try {
             $filteredItems = $this->itemApi->getByParams($itemDownloadOption->getQueryOptions());
-        } catch (ItemException $exception) {
+        } catch (ItemClientException $exception) {
             $this->addFlash('danger', $exception->getMessage());
-            return $this->render('item/show.html.twig', [
-                'items' => [],
-                'downloadOptions' => ItemDownloadOptionsInterface::AVAILABLE_DOWNLOAD_OPTIONS
-            ]);
-        }
 
+            return $this->redirectToRoute('items_show');
+        } catch (ItemServerException $serverException) {
+            $this->addFlash('danger', 'Wystąpił błąd przy pobieraniu listy produktów, spróbuj ponownie później.');
+
+            return $this->redirectToRoute('items_show');
+        }
 
         return $this->getCsvResponse($filteredItems);
     }

@@ -315,7 +315,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jgawlik/api-item-client.git",
-                "reference": "faba290f95456b4d9b59e62f0e3b9c6a06459ba5"
+                "reference": "03e323f9baf6577ba59b7f3127e0aa98e53990fd"
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.3",
@@ -338,7 +338,7 @@
                     "email": "justyna.gawlik@yahoo.pl"
                 }
             ],
-            "time": "2018-02-12T20:28:23+00:00"
+            "time": "2018-02-13T17:55:47+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
