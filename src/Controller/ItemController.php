@@ -71,6 +71,21 @@ class ItemController extends AbstractController
         ]);
     }
 
+    public function removeItem(int $itemId): Response
+    {
+        try {
+            $this->itemApi->remove($itemId);
+        } catch (ItemServerException $serverException) {
+            $this->addFlash('danger', 'Wystąpił błąd przy usuwaniu produktu, spróbuj ponownie później.');
+
+            return $this->redirectToRoute('items_show');
+        }
+
+        $this->addFlash('danger', "Poprawnie usunięto produkt o id {$itemId}");
+
+        return $this->redirectToRoute('items_show');
+    }
+
     public function downloadItem(string $downloadOption): Response
     {
         $itemDownloadOption = (new ItemDownloadOptionsFactory())->getItemDownloadOption($downloadOption);

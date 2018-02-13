@@ -25,6 +25,7 @@
                                 <th>ID</th>
                                 <th>Nazwa produktu</th>
                                 <th>Ilość produktu na stanie</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -33,12 +34,16 @@
                                     <td>{{ item.id }}</td>
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.amount }} </td>
+                                    <td>
+                                        <a class="btn btn-danger" role="button"
+                                           href="{{ path('items_remove', {'itemId' : item.id}) }}">Usuń</a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>
                         </table>
                         <div>
-                            <a class="btn btn-info" role="button" href="{{ path('items_add') }}">Dodaj nowy produkt</a>
+                            <a class="btn btn-success" role="button" href="{{ path('items_add') }}">Dodaj nowy produkt</a>
                         </div>
                     </div>
                 </div>
@@ -50,7 +55,8 @@
                     <div class="panel-body">
                         {% for option, text in downloadOptions %}
                             <div>
-                                <a class="btn btn-info" role="button" href="{{ path('items_download', {'downloadOption': option }) }}">{{ text }}</a>
+                                <a class="btn btn-info" role="button"
+                                   href="{{ path('items_download', {'downloadOption': option }) }}">{{ text }}</a>
                             </div>
                         {% endfor %}
                     </div>
