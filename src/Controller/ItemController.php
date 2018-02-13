@@ -24,17 +24,14 @@ class ItemController extends AbstractController
 
     public function showItems(): Response
     {
+        $items = [];
         try {
             $items = $this->itemApi->getByParams([]);
         } catch (ItemException $exception) {
             $this->addFlash('danger', $exception->getMessage());
-            return $this->render('item/showItems.html.twig', [
-                'items' => [],
-                'downloadOptions' => ItemDownloadOptionsInterface::AVAILABLE_DOWNLOAD_OPTIONS
-            ]);
         }
 
-        return $this->render('item/showItems.html.twig', [
+        return $this->render('item/show.html.twig', [
             'items' => $items,
             'downloadOptions' => ItemDownloadOptionsInterface::AVAILABLE_DOWNLOAD_OPTIONS
         ]);
@@ -47,7 +44,7 @@ class ItemController extends AbstractController
             $filteredItems = $this->itemApi->getByParams($itemDownloadOption->getQueryOptions());
         } catch (ItemException $exception) {
             $this->addFlash('danger', $exception->getMessage());
-            return $this->render('item/showItems.html.twig', [
+            return $this->render('item/show.html.twig', [
                 'items' => [],
                 'downloadOptions' => ItemDownloadOptionsInterface::AVAILABLE_DOWNLOAD_OPTIONS
             ]);
