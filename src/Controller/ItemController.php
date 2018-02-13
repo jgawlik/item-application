@@ -7,9 +7,11 @@ namespace App\Controller;
 use ApiClient\Exception\ItemClientException;
 use ApiClient\Exception\ItemServerException;
 use ApiClient\Service\ItemInterface;
+use App\Form\Type\ItemFromType;
 use App\ItemDownload\ItemDownloadOptionsFactory;
 use App\ItemDownload\ItemDownloadOptionsInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Serializer;
@@ -37,6 +39,21 @@ class ItemController extends AbstractController
         return $this->render('item/show.html.twig', [
             'items' => $items,
             'downloadOptions' => ItemDownloadOptionsInterface::AVAILABLE_DOWNLOAD_OPTIONS
+        ]);
+    }
+
+    public function addItem(Request $request): Response
+    {
+        $form = $this->createForm(ItemFromType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            //TODO
+            $this->addFlash('success', 'Poprawnie dodano nowy produkt!');
+            return $this->redirectToRoute('items_show');
+        }
+
+        return $this->render('item/add.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 

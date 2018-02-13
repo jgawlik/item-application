@@ -1,7 +1,11 @@
-show_items:
+items_show:
     path:      /
     controller: App\Controller\ItemController::showItems
 
-download_item:
-    path:      /download_items/{downloadOption}
+items_add:
+    path:      /items/add
+    controller: App\Controller\ItemController::addItem
+
+items_download:
+    path:      /items/download/{downloadOption}
     controller: App\Controller\ItemController::downloadItem
