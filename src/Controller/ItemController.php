@@ -62,7 +62,52 @@ class ItemController extends AbstractController
                 ]);
             }
 
-            $this->addFlash('success', 'Poprawnie dodano nowy produkt!');
+            $this->addFlash('success', 'Poprawnie dodano nowy produkt.');
+            return $this->redirectToRoute('items_show');
+        }
+
+        return $this->render('item/add.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function updateItem(Request $request, int $itemId): Response
+    {
+        try {
+            $item = $this->itemApi->get($itemId);
+        } catch (ItemClientException $exception) {
+            $this->addFlash('danger', "Brak produktu o id {$itemId}");
+
+            return $this->redirectToRoute('items_show');
+        }
+
+        $form = $this->createForm(ItemFromType::class, $item);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $this->itemApi->update(
+                    [
+                        'amount' => $form->get('amount')->getData(),
+                        'name' => $form->get('name')->getData(),
+                    ],
+                    $itemId
+                );
+            } catch (ItemClientException $clientException) {
+                $this->addFlash('danger', 'Formularz zawiera błędy!');
+
+                return $this->render('item/add.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            } catch (ItemServerException $serverException) {
+                $this->addFlash('danger', 'Wystąpił błąd przy aktualizacji produktu, spróbuj ponownie później.');
+
+                return $this->render('item/add.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            }
+
+            $this->addFlash('success', 'Poprawnie zaktualizowano dane produktu.');
+
             return $this->redirectToRoute('items_show');
         }
 

@@ -35,6 +35,8 @@
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.amount }} </td>
                                     <td>
+                                        <a class="btn btn-warning" role="button"
+                                           href="{{ path('items_update', {'itemId' : item.id}) }}">Modyfikuj</a>
                                         <a class="btn btn-danger" role="button"
                                            href="{{ path('items_remove', {'itemId' : item.id}) }}">Usuń</a>
                                     </td>

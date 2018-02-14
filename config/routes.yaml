@@ -1,15 +1,28 @@
 items_show:
     path:      /
     controller: App\Controller\ItemController::showItems
+    methods: ['GET']
 
 items_add:
     path:      /items/add
     controller: App\Controller\ItemController::addItem
+    methods: ['GET', 'POST']
+
+items_update:
+    path:      /items/update/{itemId}
+    controller: App\Controller\ItemController::updateItem
+    methods: ['GET', 'POST']
+    requirements:
+        itemId: '\d+'
 
 items_remove:
     path:      /items/remove/{itemId}
     controller: App\Controller\ItemController::removeItem
+    methods: ['GET']
+    requirements:
+        itemId: '\d+'
 
 items_download:
     path:      /items/download/{downloadOption}
     controller: App\Controller\ItemController::downloadItem
+    methods: ['GET']
