@@ -7,6 +7,7 @@ namespace App\Controller;
 use ApiClient\Exception\ItemClientException;
 use ApiClient\Exception\ItemServerException;
 use ApiClient\Service\ItemInterface;
+use App\Form\Model\ItemFormMessage;
 use App\Form\Type\ItemFromType;
 use App\ItemDownload\ItemDownloadOptionsFactory;
 use App\ItemDownload\ItemDownloadOptionsInterface;
@@ -51,14 +52,17 @@ class ItemController extends AbstractController
                 $this->itemApi->add($form->getData());
             } catch (ItemClientException $clientException) {
                 $this->addFlash('danger', 'Formularz zawiera błędy!');
+
                 return $this->render('item/item-form.html.twig', [
                     'form' => $form->createView(),
+                    'title' => ItemFormMessage::ADD_ITEM_FORM_TITLE,
                 ]);
             } catch (ItemServerException $serverException) {
                 $this->addFlash('danger', 'Wystąpił błąd przy dodawaniu produktu, spróbuj ponownie później.');
 
                 return $this->render('item/item-form.html.twig', [
                     'form' => $form->createView(),
+                    'title' => ItemFormMessage::ADD_ITEM_FORM_TITLE,
                 ]);
             }
 
@@ -68,6 +72,7 @@ class ItemController extends AbstractController
 
         return $this->render('item/item-form.html.twig', [
             'form' => $form->createView(),
+            'title' => ItemFormMessage::ADD_ITEM_FORM_TITLE,
         ]);
     }
 
@@ -97,15 +102,16 @@ class ItemController extends AbstractController
 
                 return $this->render('item/item-form.html.twig', [
                     'form' => $form->createView(),
+                    'title' => ItemFormMessage::UPDATE_ITEM_FORM_TITLE,
                 ]);
             } catch (ItemServerException $serverException) {
                 $this->addFlash('danger', 'Wystąpił błąd przy aktualizacji produktu, spróbuj ponownie później.');
 
                 return $this->render('item/item-form.html.twig', [
                     'form' => $form->createView(),
+                    'title' => ItemFormMessage::UPDATE_ITEM_FORM_TITLE,
                 ]);
             }
-
             $this->addFlash('success', 'Poprawnie zaktualizowano dane produktu.');
 
             return $this->redirectToRoute('items_show');
@@ -113,6 +119,7 @@ class ItemController extends AbstractController
 
         return $this->render('item/item-form.html.twig', [
             'form' => $form->createView(),
+            'title' => ItemFormMessage::UPDATE_ITEM_FORM_TITLE,
         ]);
     }
 
