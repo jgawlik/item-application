@@ -51,13 +51,13 @@ class ItemController extends AbstractController
                 $this->itemApi->add($form->getData());
             } catch (ItemClientException $clientException) {
                 $this->addFlash('danger', 'Formularz zawiera błędy!');
-                return $this->render('item/add.html.twig', [
+                return $this->render('item/item-form.html.twig', [
                     'form' => $form->createView(),
                 ]);
             } catch (ItemServerException $serverException) {
                 $this->addFlash('danger', 'Wystąpił błąd przy dodawaniu produktu, spróbuj ponownie później.');
 
-                return $this->render('item/add.html.twig', [
+                return $this->render('item/item-form.html.twig', [
                     'form' => $form->createView(),
                 ]);
             }
@@ -66,7 +66,7 @@ class ItemController extends AbstractController
             return $this->redirectToRoute('items_show');
         }
 
-        return $this->render('item/add.html.twig', [
+        return $this->render('item/item-form.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -95,13 +95,13 @@ class ItemController extends AbstractController
             } catch (ItemClientException $clientException) {
                 $this->addFlash('danger', 'Formularz zawiera błędy!');
 
-                return $this->render('item/add.html.twig', [
+                return $this->render('item/item-form.html.twig', [
                     'form' => $form->createView(),
                 ]);
             } catch (ItemServerException $serverException) {
                 $this->addFlash('danger', 'Wystąpił błąd przy aktualizacji produktu, spróbuj ponownie później.');
 
-                return $this->render('item/add.html.twig', [
+                return $this->render('item/item-form.html.twig', [
                     'form' => $form->createView(),
                 ]);
             }
@@ -111,7 +111,7 @@ class ItemController extends AbstractController
             return $this->redirectToRoute('items_show');
         }
 
-        return $this->render('item/add.html.twig', [
+        return $this->render('item/item-form.html.twig', [
             'form' => $form->createView(),
         ]);
     }
