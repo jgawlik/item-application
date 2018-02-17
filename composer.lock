@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "345ca38d090fb8cb9361657774ab02b4",
+    "content-hash": "bd10520550e1f57d3607177b1a4ad5f7",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -311,15 +311,18 @@
         },
         {
             "name": "jgawlik/api-item-client",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jgawlik/api-item-client.git",
-                "reference": "54543dd8c6ffb3bb59b82ba650b66fae28774cd3"
+                "reference": "1907f0537b2e97063a247fabf4cbdb3f5ac3b02e"
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.3",
                 "symfony/options-resolver": "^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5"
             },
             "type": "library",
             "autoload": {
@@ -338,7 +341,7 @@
                     "email": "justyna.gawlik@yahoo.pl"
                 }
             ],
-            "time": "2018-02-14T13:59:41+00:00"
+            "time": "2018-02-15T20:24:03+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -2780,9 +2783,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "jgawlik/api-item-client": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
