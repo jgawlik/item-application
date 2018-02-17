@@ -10,6 +10,7 @@ class ItemDownloadOptionsFactory
 {
     const ITEM_DOWNLOAD_CLASSES = [
         ItemDownloadOptionsInterface::ALL => DownloadAll::class,
+        ItemDownloadOptionsInterface::IN_STOCK => DownloadInStock::class,
         ItemDownloadOptionsInterface::NOT_AVAILABLE => DownloadNotAvailable::class,
         ItemDownloadOptionsInterface::GREATER_THAN_5 => DownloadGreaterThan5::class,
     ];

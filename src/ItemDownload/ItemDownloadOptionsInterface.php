@@ -7,11 +7,13 @@ namespace App\ItemDownload;
 interface ItemDownloadOptionsInterface
 {
     const ALL = 'all';
+    const IN_STOCK = 'in_stock';
     const NOT_AVAILABLE = 'not_available';
     const GREATER_THAN_5 = 'greater_than_5';
 
     const AVAILABLE_DOWNLOAD_OPTIONS = [
         self::ALL => 'Pobierz wszystkie produkty',
+        self::IN_STOCK => 'Pobierz znajdujące się na składzie produkty',
         self::NOT_AVAILABLE => 'Pobierz nieznajdujące się na składzie produkty',
         self::GREATER_THAN_5 => 'Pobierz znajdują się na składzie w ilości większej niż 5',
     ];
